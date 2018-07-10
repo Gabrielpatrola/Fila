@@ -1,13 +1,10 @@
 #include <stdio.h> 
 #include <stdlib.h> 
+#include <conio.h>
 #include <string.h>
-
-
-
 typedef struct dado
 {int codigo;
  char nome[80];
- float valor;
  int qt;
 }dados;
 typedef struct Item 
@@ -34,7 +31,7 @@ int EstaVazia(Fila *fila)
     return fila->inicio == NULL; 
 }
 
-void Inserir(Fila *fila, int numero, char nome[],int qt,float valor) 
+void Inserir(Fila *fila, int numero, char nome[],int qt) 
 { 
     Itens *novo; 
     novo = (Itens *)malloc(sizeof(Itens));  
@@ -43,8 +40,7 @@ void Inserir(Fila *fila, int numero, char nome[],int qt,float valor)
     if (novo != NULL) 
     { 
         novo->numero.codigo = numero; 
-        novo->numero.qt = qt; 
-        novo->numero.valor= valor; 
+        novo->numero.qt = qt;
         strcpy(novo->numero.nome,nome); 
         novo->proximo = NULL;
 
@@ -84,7 +80,7 @@ void MostrarFila(Fila *fila)
     int i = 0; 
     Itens *item; 
     printf("\n\n Listando...\n\n"); 
-    printf("---------------------------------\n");
+    printf("\n---------------------------------\n");
 
     if (EstaVazia(fila)) 
     { 
@@ -96,57 +92,23 @@ void MostrarFila(Fila *fila)
               while(item != NULL) 
         { 
             i++; 
-            printf("Item [%i]\n",i); 
+            printf("Paciente [%i]\n",i); 
             printf("Codigo-> %d\t", item->numero.codigo); 
             printf("Nome-> %s\t", item->numero.nome); 
-            printf("Qt-> %d\t", item->numero.qt); 
-            printf("Valor-> %.2f\n", item->numero.valor); 
+            printf("Data-> %d\t", item->numero.qt);
             item = item->proximo; 
         } 
     }
 
-    printf("---------------------------------\n"); 
-}
-Itens Mostrar(Fila *fila,int cod) 
-{ 
-    int i = 0; 
-    Itens *item; 
-    printf("\n\n Listando...\n\n"); 
-    printf("---------------------------------\n");
-
-  /*  if (EstaVazia(fila)) 
-    { 
-        printf ("A Fila esta vazia!\n"); 
-    } 
-    else 
-    {    */   
-        item = fila->inicio;
-        if (item == NULL)
-        {printf("nao cadastrado");
-		}
-        system("pause"); 
-        while(item != NULL && item->numero.codigo==cod ) 
-        { 
-            i++; 
-            printf("Item [%i]\n",i); 
-            printf("Codigo-> %d\t", item->numero.codigo); 
-            printf("Nome-> %s\t", item->numero.nome); 
-            printf("Qt-> %d\t", item->numero.qt); 
-            printf("Valor-> %.2f\n", item->numero.valor); 
-            item = item->proximo; 
-        } 
-  //  }
-
-    printf("---------------------------------\n"); 
-    return *item;
+    printf("\n---------------------------------\n"); 
 }
 
 void Menu() 
 {   system("cls");
     printf("Digite a sua escolha: \n" );
-    printf("1 Inserir fila \n" );
-    printf("2 retirar da fila \n" );
-    printf("3 tamanho da fila \n");
+    printf("1 Inserir paciente \n" );
+    printf("2 retirar paciente \n" );
+    printf("3 mostrar consultas \n");
     printf("4 Sair \n" );
     printf("Opcao : " );
     
@@ -183,15 +145,13 @@ int main()
         switch (opcao) 
         { 
             case 1: 
-                printf( "Digite um numero: "); 
+                printf( "Digite o codigo: "); 
                 scanf("\n%i", &numero);
-                printf( "Digite produto: "); 
+                printf( "Digite o nome: "); 
                 scanf("\n%s", &nome);
-                printf( "Digite a quantidade: "); 
+                printf( "Digite a data: "); 
                 scanf("\n%i", &qt);
-                printf( "Digite o valor unitario: "); 
-                scanf("\n%f", &valor);  
-                Inserir(fila, numero,nome,qt,valor); 
+                Inserir(fila, numero,nome,qt); 
                 MostrarFila(fila);
                 system("pause");
 
